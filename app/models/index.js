@@ -1,5 +1,4 @@
 const config = require("../config/db.config");
-
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(
@@ -39,7 +38,6 @@ db.role.belongsToMany(db.user, {
     timestamps: false
   }
 });
-
 db.user.belongsToMany(db.role, {
   through: "user_roles",
   foreignKey: "userId",
@@ -49,19 +47,25 @@ db.user.belongsToMany(db.role, {
   }
 });
 
+
+
+
 db.user.hasMany(db.project, {
-  foreignKey: "id_project",
+  foreignKey: "id_user",
 })
-db.project.belongsTo(db.user, {
+db.project.belongsTo(db.user , {
   foreignKey: "id_user",
 })
 
-db.user.hasMany(db.task, {
-  foreignKey: "id_user",
+
+
+db.project.hasMany(db.task, {
+  foreignKey: "id_project",
 })
-db.task.belongsTo(db.user, {
-  foreignKey: "id_task",
+db.task.belongsTo(db.project, {
+  foreignKey: "id_project",
 })
+
 
 db.ROLES = [ "admin", "user"];
 

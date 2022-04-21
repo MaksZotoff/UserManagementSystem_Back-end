@@ -4,6 +4,21 @@ const User = db.user;
 const Op = db.Sequelize.Op;
 
 
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+const Role = db.role;
+exports.findRoles = (req, res) => {
+  const id_role = req.params.id_role;
+  var condition = id_role ? {id_role: {[Op.like]: `%${id_role}%`} } : null;
+  Role.findRoles({where: condition})
+    .then( data =>{
+      res.send(data);
+    })
+    .catch( err =>{
+      res.status(500).send( { message: err.message });
+    });
+};
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 exports.findAll = (req, res) =>{
     const id_user = req.params.id_user;
     var condition = id_user ? {id_user: {[Op.like]: `%${id_user}%`} } : null;
@@ -12,8 +27,8 @@ exports.findAll = (req, res) =>{
         res.send(data);
     })
     .catch( err =>{
-        res.status(500).send( { message: err.message });
-    });
+      res.status(500).send( { message: err.message });
+  });
 };
 
 exports.findOne = (req, res) => {

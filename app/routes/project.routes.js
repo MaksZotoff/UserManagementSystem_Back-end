@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    const projectcontroller = require("../controllers/project.controller");
+  const projectcontroller = require("../controllers/project.controller");
 
     app.use(function(req, res, next) {
       res.header(
@@ -9,10 +9,11 @@ module.exports = function(app) {
       next();
     });
     
-    app.post("/project/", projectcontroller.create);
+    app.post("/project/addproject", projectcontroller.addproject);
     app.get("/project/", projectcontroller.findAll);
-    app.get("/project/:id", projectcontroller.findOne);
-    app.put("/project/:id", projectcontroller.update);
-    app.delete("/project/:id", projectcontroller.delete);
-    
-  };
+    app.get("/project/:id_project", projectcontroller.findOne);
+    app.put("/project/:id_project", projectcontroller.update);
+    app.delete("/project/:id_project", projectcontroller.delete);  
+
+};
+

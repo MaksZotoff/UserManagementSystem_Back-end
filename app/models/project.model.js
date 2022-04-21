@@ -5,10 +5,8 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         autoIncrement: true
       },
-      id_user: {  type: Sequelize.INTEGER  },
       title: {  type: Sequelize.STRING  },
-      date_start: {  type: Sequelize.DATE  },
-      date_end: {  type: Sequelize.DATE  },
+      id_user: { type: Sequelize.INTEGER},
     }); 
     return Project;
   };

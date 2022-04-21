@@ -3,7 +3,7 @@ const db = require("../models");
 const Task = db.task;
 const Op = db.Sequelize.Op;
 
-exports.create = (req, res) => {
+exports.addtask = (req, res) => {
     // Validate
     if (!req.body.title) {
         res.status(400).send({
@@ -12,75 +12,84 @@ exports.create = (req, res) => {
     return;
     }
 
-    const task = {
-    id_user: req.body.id_user,
-    text: req.body.text,
-    status: req.body.status,
-    createdAt: req.body.createdAt,
-    };
-
-    Task.create(task)
-    .then(data => {
-        res.send(data);
+    Task.create({
+            id_task: req.body.task,
+            id_project: req.body.id_project,
+            title: req.body.title,
+            status: req.body.status,
+            createdAt: req.body.createdAt,
+            date_end: req.body.date_end,
+    })
+    .then(task => {
+        res.send(task);
     })
     .catch(err => {
         res.status(500).send({
-        message: "Во время создания была получена ошибка."
+            message: err.message
+        });
+    });
+};
+
+exports.findOne = (req, res) => {
+    const id_task = req.params.id_task;
+    Task.findByPk(id_task)
+    .then( data =>{
+        if (data){
+            res.send(data);
+        } else {
+            res.status(404).send( {
+                message: `Зададчи с идентификатором ${id_task} не найдено.`
+            });
+        }
+    })
+    .catch( err =>{
+        res.status(500).send( { 
+            message: `Ошибка при получении задачи с идентификатором ${id}`
         });
     });
 };
 
 exports.findAll = (req, res) =>{
-    const id_task = req.query.id_task;
-    var condition = id_task ? {id_task: {[Op.like]: `%${id_task}%`} } : null;
+    const title = req.query.title;
+    var condition = title ? {title: {[Op.like]: `%${title}%`} } : null;
+    
     Task.findAll({  where: condition    })
-    .then( task =>{
-        res.send(task);
+    .then( data =>{
+        res.send(data);
     })
     .catch( err =>{
         res.status(500).send( { message: err.message });
     });
 };
 
-exports.findOne = (req, res) => {
-    const id_task = req.params.id;
-    var condition = id_task ? {id_task: {[Op.eq]: `${id_task}`} } : null;
-    Task.findOne({  where: condition    })
-    .then( task =>{
-        res.send(task);
-    })
-    .catch( err =>{
-        res.status(500).send( { message: err.message });
-    });
-};
+
 
 exports.update = (req, res) =>{
-    const id_task = req.params.id;
-    var condition = id_task ? {id_task: {[Op.eq]: `${id_task}`} } : null;
+    const id_task = req.params.id_task;
 
         Task.update(req.body, {
-            where: { condition }
+            where: { id_task: id_task }
         })
         .then(num => {
             if (num == 1) {
             res.send({
-                message: "Task was updated successfully."
+                message: "Задача обновлена успешно."
             });
             } else {
             res.send({
-                message: `Cannot update Task with id=${id}.`
+                message: `Невозможно обновить задачу с идентификатором ${id_task}.`
             });
             }
         })
         .catch(err => {
             res.status(500).send({
-            message: err.message || "Error updating Task with id=" + id
+                message:  `Ошибка обновления проекта.`
             });
         });
 };
 
 exports.delete = (req, res) =>{
-    const id_task = req.params.id;
+    const id_task = req.params.id_task;
 
     Task.destroy({
         where: {   id_task: id_task }
@@ -89,17 +98,17 @@ exports.delete = (req, res) =>{
     .then(num => {
         if (num == 1) {
         res.send({
-            message: "Task was deleted successfully!"
+            message: "Задача удалена успешно"
         });
         } else {
         res.send({
-            message: `Cannot delete Task with id=${id_task}.`
+            message: `Невозможно удалить задачу с идентификатором ${id_task}.`
         });
         }
     })
     .catch(err => {
         res.status(500).send({
-        message: err.message || "Could not delete Task with id=" + id_task
+        message:"Ошибка удаления задачи"
         });
     });
 };

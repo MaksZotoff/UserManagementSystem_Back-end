@@ -5,13 +5,13 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
-        id_user: {  type: Sequelize.INTEGER  },
-        text: {  type: Sequelize.STRING  },
+        id_project: {  type: Sequelize.INTEGER  },
+
+        title: {  type: Sequelize.STRING  },
         status: {   type: Sequelize.STRING  },
-        createdAt: {    
-            type: Sequelize.DATE, 
-            defaultValue: Sequelize.NOW   
-        },
+        createdAt: {  type: Sequelize.DATE },
+        date_end: {  type: Sequelize.DATE  },
+
     });
     return Task;
 };
