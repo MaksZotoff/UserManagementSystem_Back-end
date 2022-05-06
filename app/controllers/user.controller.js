@@ -12,4 +12,3 @@ exports.adminBoard = (req, res) => {
 exports.allBoard = (req, res) => {
     res.status(200).send("Для чего нужна система. ");
   };
-

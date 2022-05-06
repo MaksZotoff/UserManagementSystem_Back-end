@@ -8,10 +8,9 @@ module.exports = (sequelize, Sequelize) => {
         id_project: {  type: Sequelize.INTEGER  },
 
         title: {  type: Sequelize.STRING  },
-        status: {   type: Sequelize.STRING  },
-        createdAt: {  type: Sequelize.DATE },
+        relevant: {   type: Sequelize.BOOLEAN  },
+        date_start: {  type: Sequelize.DATE },
         date_end: {  type: Sequelize.DATE  },
-
     });
     return Task;
 };

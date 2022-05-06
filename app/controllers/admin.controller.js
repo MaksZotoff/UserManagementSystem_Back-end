@@ -3,8 +3,6 @@ const db = require("../models");
 const User = db.user;
 const Op = db.Sequelize.Op;
 
-
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const Role = db.role;
 exports.findRoles = (req, res) => {
   const id_role = req.params.id_role;
@@ -17,7 +15,6 @@ exports.findRoles = (req, res) => {
       res.status(500).send( { message: err.message });
     });
 };
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 exports.findAll = (req, res) =>{
     const id_user = req.params.id_user;
@@ -44,7 +41,6 @@ exports.findOne = (req, res) => {
   });
 };
 
-
 exports.findByLogin = (req, res) => {
   const username = req.query.username;
   var condition = username ? {username:  {[Op.eq]:`${username}`} } : null;
@@ -58,8 +54,6 @@ exports.findByLogin = (req, res) => {
         res.status(500).send( { message: err.message });
     });
 };
-
-
 
 exports.update = (req, res) =>{
     const id_user = req.params.id_user;
@@ -84,7 +78,6 @@ exports.update = (req, res) =>{
             });
         });
 };
-
 
 exports.delete = (req, res) =>{
     const id_user = req.params.id_user;

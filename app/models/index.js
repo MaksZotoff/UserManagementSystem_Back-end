@@ -29,7 +29,6 @@ db.role = require("./role.model")(sequelize, Sequelize);
 db.task = require("./task.model")(sequelize, Sequelize);
 db.project = require("./project.model")(sequelize, Sequelize);
 
-// M:M(N:M) -> BelongsToMany Association 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
   foreignKey: "roleId",
@@ -48,24 +47,27 @@ db.user.belongsToMany(db.role, {
 });
 
 
-
-
 db.user.hasMany(db.project, {
   foreignKey: "id_user",
+  define: {
+    timestamps: false
+  }
 })
 db.project.belongsTo(db.user , {
   foreignKey: "id_user",
+  define: {
+    timestamps: false
+  }
 })
 
 
-
-db.project.hasMany(db.task, {
+db.project.hasMany(db.task, {  
+  onDelete: "cascade",
   foreignKey: "id_project",
+  define: {
+    timestamps: false
+  }
 })
-db.task.belongsTo(db.project, {
-  foreignKey: "id_project",
-})
-
 
 db.ROLES = [ "admin", "user"];
 

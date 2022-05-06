@@ -44,5 +44,3 @@ const authJwt = {
   isAdmin: isAdmin
 };
 module.exports = authJwt;
-
-

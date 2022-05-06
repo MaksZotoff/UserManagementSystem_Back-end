@@ -9,6 +9,7 @@ module.exports = function(app) {
       next();
     });
     app.get("/task/", taskcontroller.findAll);
+    app.get("/task/relevant", taskcontroller.findAllRelevant);
     app.get("/task/:id_task", taskcontroller.findOne);
     app.post("/task/addtask", taskcontroller.addtask);
     app.put("/task/:id_task", taskcontroller.update);

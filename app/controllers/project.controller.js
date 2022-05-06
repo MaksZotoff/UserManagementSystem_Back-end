@@ -1,10 +1,10 @@
 const db = require("../models");
 
 const Project = db.project;
+const Task = db.task;
 const Op = db.Sequelize.Op;
 
 exports.addproject = (req, res) => {
-    // Validate
     if (!req.body.title) {
         res.status(400).send({
             message: "Содержимое не может быть пустым."
@@ -13,12 +13,12 @@ exports.addproject = (req, res) => {
     }
 
     Project.create({
-    id_project: req.body.id_project,
-    title: req.body.title,
-    id_user: req.body.id_user,
+        id_project: req.body.id_project,
+        title: req.body.title,
+        id_user: req.body.id_user,
     })
     .then(project => {
-        res.send(project);
+        res.send({ message: "Проект добавлен успешно." });
     })
     .catch(err => {
         res.status(500).send({
@@ -28,10 +28,10 @@ exports.addproject = (req, res) => {
 };
 
 exports.findAll = (req, res) =>{
-    const title = req.query.title;
-    var condition = title ? {title: {[Op.like]: `%${title}%`} } : null;
+    const id_project = req.query.id_project;
+    var condition = id_project ? {id_project: {[Op.like]: `%${id_project}%`} } : null;
     
-    Project.findAll({  where: condition    })
+    Project.findAll({  where: condition, include: [{ model: Task }]    })
     .then( data =>{
         res.send(data);
     })
@@ -88,7 +88,7 @@ exports.delete = (req, res) =>{
     const id_project = req.params.id_project;
 
     Project.destroy({
-        where: {   id_project: id_project }
+        where: {id_project: id_project}
     })
 
     .then(num => {
