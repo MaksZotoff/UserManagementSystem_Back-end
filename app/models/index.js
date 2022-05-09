@@ -26,8 +26,9 @@ db.sequelize = sequelize;
 
 db.user = require("./user.model")(sequelize, Sequelize);
 db.role = require("./role.model")(sequelize, Sequelize);
-db.task = require("./task.model")(sequelize, Sequelize);
 db.project = require("./project.model")(sequelize, Sequelize);
+db.task = require("./task.model")(sequelize, Sequelize);
+db.brief = require("./brief.model")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -53,12 +54,21 @@ db.user.hasMany(db.project, {
     timestamps: false
   }
 })
+
+db.user.hasMany(db.brief, {
+  foreignKey: "id_user",
+  define: {
+    timestamps: false
+  }
+})
+
 db.project.belongsTo(db.user , {
   foreignKey: "id_user",
   define: {
     timestamps: false
   }
 })
+
 
 
 db.project.hasMany(db.task, {  
@@ -68,6 +78,7 @@ db.project.hasMany(db.task, {
     timestamps: false
   }
 })
+
 
 db.ROLES = [ "admin", "user"];
 

@@ -1,9 +1,9 @@
 const db = require("../models");
 
 const User = db.user;
+const Role = db.role;
 const Op = db.Sequelize.Op;
 
-const Role = db.role;
 exports.findRoles = (req, res) => {
   const id_role = req.params.id_role;
   var condition = id_role ? {id_role: {[Op.like]: `%${id_role}%`} } : null;

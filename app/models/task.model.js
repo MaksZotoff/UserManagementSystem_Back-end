@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
         id_project: {  type: Sequelize.INTEGER  },
 
         title: {  type: Sequelize.STRING  },
-        relevant: {   type: Sequelize.BOOLEAN  },
+        relevant: {   type: Sequelize.BOOLEAN, default: false  },
         date_start: {  type: Sequelize.DATE },
         date_end: {  type: Sequelize.DATE  },
     });

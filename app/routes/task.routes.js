@@ -1,6 +1,6 @@
-module.exports = function(app) {
-    const taskcontroller = require("../controllers/task.controller");
+const taskcontroller = require("../controllers/task.controller");
 
+module.exports = function(app) {
     app.use(function(req, res, next) {
       res.header(
         "Access-Control-Allow-Headers",

@@ -1,3 +1,5 @@
+const Task = require("./task.model");
+
 module.exports = (sequelize, Sequelize) => {
   const Project = sequelize.define("projects", {
     id_project: {

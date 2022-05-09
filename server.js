@@ -36,6 +36,7 @@ require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/admin.routes")(app);
 require("./app/routes/task.routes")(app);
+require("./app/routes/brief.routes")(app);
 require("./app/routes/project.routes")(app);
 
 
