@@ -6,9 +6,12 @@ module.exports = (sequelize, Sequelize) => {
         autoIncrement: true
       },
       username : { type: Sequelize.STRING  },
+      name: { type: Sequelize.STRING },
+      surname : { type: Sequelize.STRING },   
       email : { type: Sequelize.STRING  },
       phone: {  type: Sequelize.STRING  },
-      password : { type: Sequelize.STRING }
+      password : { type: Sequelize.STRING },
+      salary : { type: Sequelize.INTEGER }
     });
     return User;
   };
