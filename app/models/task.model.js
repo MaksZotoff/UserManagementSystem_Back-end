@@ -1,3 +1,5 @@
+const Project = require("./project.model");
+
 module.exports = (sequelize, Sequelize) => {
     const Task = sequelize.define("tasks", {
         id_task: {
@@ -5,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
-        id_project: {  type: Sequelize.INTEGER  },
+        id_project: {  type: Sequelize.INTEGER, default: Project.id_project  },
 
         title: {  type: Sequelize.STRING  },
         relevant: {   type: Sequelize.BOOLEAN, default: false  },

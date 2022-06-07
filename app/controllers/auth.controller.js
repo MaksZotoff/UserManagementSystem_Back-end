@@ -11,10 +11,14 @@ const Op = db.Sequelize.Op;
 
 exports.adduser = (req, res) => {
   User.create({
-    username: req.body.username,
-    email: req.body.email,
+    email: req.body.email,   
     phone: req.body.phone,
-    password: bcrypt.hashSync(req.body.password, 8)
+    password: bcrypt.hashSync(req.body.password, 8),
+    username: req.body.username,
+    name: req.body.name,
+    surname: req.body.surname,
+    salary: req.body.salary
+    
   })
     .then(user => {
       if (req.body.roles) {

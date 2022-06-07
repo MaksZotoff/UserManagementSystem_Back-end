@@ -70,16 +70,38 @@ db.project.belongsTo(db.user , {
 })
 
 
-
+/*
 db.project.hasMany(db.task, {  
-  onDelete: "cascade",
   foreignKey: "id_project",
   define: {
     timestamps: false
   }
 })
 
+db.task.belongsTo(db.project , {
+  foreignKey: "id_project",
+  define: {
+    timestamps: false
+  }
+})
+*/
 
+db.project.belongsToMany(db.task, {
+  through: "task_projects",
+  foreignKey: "projectId",
+  otherKey: "taskId",
+  define: {
+    timestamps: false
+  }
+});
+db.task.belongsToMany(db.project, {
+  through: "task_projects",
+  foreignKey: "taskId",
+  otherKey: "projectId",
+  define: {
+    timestamps: false
+  }
+});
 db.ROLES = [ "admin", "user"];
 
 module.exports = db; 
